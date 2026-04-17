@@ -3,114 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal de Reportes - El Compadre</title>
+    <title>Panel de Control - El Compadre</title>
     <style>
-        /* COLORES SEGÚN EL MANUAL DE MARCA */
-        :root {
-            --rojo-compadre: #E1251B;
-            --azul-compadre: #012094;
-            --gris-fondo: #f4f4f4;
-        }
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; background: #f4f4f4; overflow: hidden; }
+        
+        /* Barra superior con colores corporativos */
+        header { background: #E1251B; color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 5px solid #012094; }
+        header h1 { margin: 0; font-size: 22px; }
+        .eslogan { font-style: italic; font-size: 14px; opacity: 0.9; }
 
-        body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            margin: 0;
-            background-color: var(--gris-fondo);
-            color: #333;
+        /* Panel de botones */
+        .panel-botones { background: #ffffff; padding: 10px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        button { 
+            background: #012094; color: white; border: none; padding: 12px 25px; margin: 5px; 
+            cursor: pointer; border-radius: 5px; font-weight: bold; font-size: 14px; transition: 0.2s;
         }
+        button:hover { background: #E1251B; }
 
-        /* ENCABEZADO */
-        header {
-            background-color: var(--rojo-compadre);
-            color: white;
-            padding: 40px 20px;
-            text-align: center;
-            border-bottom: 8px solid var(--azul-compadre);
-        }
-
-        h1 { margin: 0; font-size: 2.5em; }
-        .eslogan { font-style: italic; opacity: 0.9; }
-
-        /* CONTENEDOR DE TARJETAS */
-        .grid-proyectos {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            padding: 50px 20px;
-            flex-wrap: wrap;
-        }
-
-        /* CADA TARJETA DE PROYECTO */
-        .tarjeta {
-            background: white;
-            width: 300px;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            transition: 0.3s;
-            text-align: center;
-            border: 1px solid #ddd;
-        }
-
-        .tarjeta:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-        }
-
-        .tarjeta-header {
-            background-color: var(--azul-compadre);
-            color: white;
-            padding: 20px;
-            font-size: 1.2em;
-            font-weight: bold;
-        }
-
-        .tarjeta-cuerpo {
-            padding: 20px;
-        }
-
-        /* BOTONES */
-        .btn-ver {
-            display: inline-block;
-            background-color: var(--rojo-compadre);
-            color: white;
-            text-decoration: none;
-            padding: 12px 25px;
-            border-radius: 25px;
-            font-weight: bold;
-            margin-top: 10px;
-            transition: 0.2s;
-        }
-
-        .btn-ver:hover {
-            background-color: #b31d15;
-        }
+        /* Pantalla donde se verán los reportes */
+        iframe { width: 100%; height: calc(100vh - 140px); border: none; background: white; }
+        
+        /* Mensaje inicial */
+        .mensaje-inicio { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #888; font-size: 18px; text-align: center; pointer-events: none; }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>PANEL DE CONTROL LOGÍSTICO</h1>
-    <p class="eslogan">"En precios y moda, el más padre"</p>
-</header>
+    <header>
+        <h1>PANEL OPERATIVO DE LOGÍSTICA</h1>
+        <span class="eslogan">"En precios y moda, el más padre"</span>
+    </header>
 
-<div class="grid-proyectos">
-    <div class="tarjeta">
-        <div class="tarjeta-header">Ventas y Saldos</div>
-        <div class="tarjeta-cuerpo">
-            <p>Análisis de movimientos y disponibilidad de inventario.</p>
-            <a href="https://edwinramirez0517.github.io/Ventas_Saldos/" class="btn-ver">Abrir Reporte</a>
-        </div>
+    <div class="panel-botones">
+        <button onclick="cargarReporte('https://edwinramirez0517.github.io/Ventas_Saldos/')">📊 Ver Ventas y Saldos</button>
+        <button onclick="cargarReporte('https://edwinramirez0517.github.io/Movimiento_Suministro_Saldos/')">📦 Ver Suministros</button>
     </div>
 
-    <div class="tarjeta">
-        <div class="tarjeta-header">Suministros</div>
-        <div class="tarjeta-cuerpo">
-            <p>Control de movimientos de suministros y saldos operativos.</p>
-            <a href="https://edwinramirez0517.github.io/Movimiento_Suministro_Saldos/" class="btn-ver">Abrir Reporte</a>
-        </div>
-    </div>
-</div>
+    <div class="mensaje-inicio" id="mensaje">Selecciona un reporte arriba para comenzar 👆</div>
+    <iframe id="visor" src=""></iframe>
+
+    <script>
+        function cargarReporte(url) {
+            document.getElementById('visor').src = url;
+            document.getElementById('mensaje').style.display = 'none'; // Oculta el mensaje cuando abres uno
+        }
+    </script>
 
 </body>
 </html>
