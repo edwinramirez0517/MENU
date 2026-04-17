@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portal Logístico - El Compadre</title>
     <style>
-        /* COLORES OFICIALES  */
+        /* COLORES OFICIALES */
         :root {
             --rojo: #E1251B;
             --azul: #012094;
@@ -13,8 +13,12 @@
             --gris-fondo: #f0f2f5;
         }
 
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; background: var(--gris-fondo); color: #333; }
+        /* Configuración para usar toda la altura de la pantalla */
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; background: var(--gris-fondo); color: #333; height: 100vh; display: flex; flex-direction: column; }
         
+        /* CONTENEDOR DEL MENÚ PRINCIPAL */
+        #menu-completo { width: 100%; }
+
         /* HEADER PROFESIONAL */
         header { 
             background: var(--rojo); 
@@ -27,108 +31,106 @@
         header h1 { margin: 0; font-size: 24px; text-transform: uppercase; letter-spacing: 1px; }
         .eslogan { font-style: italic; font-size: 14px; opacity: 0.9; display: block; margin-top: 8px; }
 
-        /* SECCIÓN DE BIENVENIDA */
         .intro { padding: 20px; text-align: center; background: white; margin-bottom: 5px; border-bottom: 1px solid #ddd; }
         .intro p { margin: 0; color: #555; font-size: 15px; }
 
-        /* CONTENEDOR DE TARJETAS (CARDS) */
         .grid-proyectos { 
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            padding: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; padding: 20px; max-width: 1200px; margin: 0 auto;
         }
 
         .card {
-            background: white;
-            border-radius: 12px;
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border-left: 5px solid var(--azul);
+            background: white; border-radius: 12px; padding: 20px; text-align: center; box-shadow: 0 6px 15px rgba(0,0,0,0.08); transition: all 0.3s ease; cursor: pointer; border-left: 5px solid var(--azul);
         }
-
-        .card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 25px rgba(0,0,0,0.15);
-            border-left-color: var(--rojo);
-        }
-
+        .card:hover { transform: translateY(-8px); box-shadow: 0 12px 25px rgba(0,0,0,0.15); border-left-color: var(--rojo); }
         .card h3 { color: var(--azul); margin: 0 0 10px 0; font-size: 18px; }
         .card p { color: #777; font-size: 14px; line-height: 1.4; margin-bottom: 15px; }
+        .btn-abrir { background: var(--azul); color: white; padding: 10px 20px; border-radius: 25px; font-weight: bold; display: inline-block; font-size: 13px; text-transform: uppercase; transition: 0.3s;}
+        .card:hover .btn-abrir { background: var(--rojo); }
 
-        /* BOTÓN INTERNO */
-        .btn-abrir {
-            background: var(--azul);
-            color: white;
+        /* =========================================
+           NUEVA BARRA PARA REGRESAR (OCULTA AL INICIO) 
+           ========================================= */
+        #barra-navegacion {
+            display: none; /* Se oculta al principio */
+            background: #f8f9fa;
             padding: 10px 20px;
-            border-radius: 25px;
-            font-weight: bold;
-            display: inline-block;
-            font-size: 13px;
-            text-transform: uppercase;
+            border-bottom: 3px solid var(--azul);
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
+        .btn-volver {
+            background: var(--azul); color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 14px; display: flex; align-items: center; transition: 0.3s;
+        }
+        .btn-volver:hover { background: var(--rojo); }
+        .titulo-reporte { font-weight: bold; color: var(--azul); font-size: 16px; }
 
-        /* VISOR DE REPORTES */
-        .visor-container { width: 100%; position: relative; background: white; }
-        iframe { width: 100%; height: 75vh; border: none; display: none; }
-
-        /* FOOTER */
-        footer { background: #333; color: #ccc; text-align: center; padding: 15px; font-size: 12px; }
-
+        /* VISOR DE REPORTES (Toma el espacio restante) */
+        #visor-container { flex-grow: 1; display: none; width: 100%; background: white; }
+        iframe { width: 100%; height: 100%; border: none; display: block; }
+        
         @media (max-width: 600px) {
             header h1 { font-size: 18px; }
             .grid-proyectos { grid-template-columns: 1fr; }
+            .titulo-reporte { display: none; } /* Oculta el título en celulares para dar espacio al botón */
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>Centro de Inteligencia de Datos</h1>
-        <span class="eslogan">"En precios y moda, el más padre" </span>
-    </header>
+    <div id="menu-completo">
+        <header>
+            <h1>Centro de Inteligencia Logística</h1>
+            <span class="eslogan">"En precios y moda, el más padre"</span>
+        </header>
 
-    <div class="intro">
-        <p>Seleccione el módulo que desea visualizar para la toma de decisiones:</p>
-    </div>
-
- <div class="grid-proyectos" id="menu-proyectos">
-        <div class="card" onclick="verReporte('https://edwinramirez0517.github.io/Ventas_Saldos/')">
-            <h3>📊 Ventas y Saldos</h3>
-            <p>Monitoreo en tiempo real de salidas y disponibilidad de inventario local.</p>
-            <div class="btn-abrir">Ver Análisis</div>
+        <div class="intro">
+            <p>Seleccione el módulo que desea visualizar para la toma de decisiones:</p>
         </div>
 
-        <div class="card" onclick="verReporte('https://edwinramirez0517.github.io/Movimiento_Suministro_Saldos/')">
-            <h3>📦 Movimientos S.S.</h3>
-            <p>Control de suministros y saldos operativos de bodega central.</p>
-            <div class="btn-abrir">Ver Inventario</div>
+        <div class="grid-proyectos">
+            <div class="card" onclick="verReporte('https://edwinramirez0517.github.io/Ventas_Saldos/', '📊 Análisis de Ventas y Saldos')">
+                <h3>📊 Ventas y Saldos</h3>
+                <p>Monitoreo en tiempo real de salidas y disponibilidad de inventario local.</p>
+                <div class="btn-abrir">Ver Análisis</div>
+            </div>
+
+            <div class="card" onclick="verReporte('https://edwinramirez0517.github.io/Movimiento_Suministro_Saldos/', '📦 Control de Movimientos y Suministros')">
+                <h3>📦 Movimientos S.S.</h3>
+                <p>Control de suministros y saldos operativos de bodega central.</p>
+                <div class="btn-abrir">Ver Inventario</div>
+            </div>
         </div>
     </div>
 
-    <div class="visor-container">
+    <div id="barra-navegacion">
+        <button class="btn-volver" onclick="volverMenu()">⬅️ Volver al Menú</button>
+        <span class="titulo-reporte" id="titulo-visor">Reporte</span>
+    </div>
+
+    <div id="visor-container">
         <iframe id="iframe_visor" src=""></iframe>
     </div>
 
-    <footer>
-        &copy; 2026 Edwin Ramirez - Departamento de Logística | El Compadre
-    </footer>
-
     <script>
-        function verReporte(url) {
-            const frame = document.getElementById('iframe_visor');
-            const menu = document.getElementById('menu-proyectos');
+        // Función para abrir el reporte y ocultar el menú
+        function verReporte(url, titulo) {
+            document.getElementById('menu-completo').style.display = 'none'; // Esconde menú
             
-            frame.src = url;
-            frame.style.display = 'block';
+            document.getElementById('barra-navegacion').style.display = 'flex'; // Muestra barra
+            document.getElementById('visor-container').style.display = 'block'; // Muestra pantalla
             
-            // Efecto suave para bajar al reporte
-            window.scrollTo({ top: menu.offsetTop + menu.offsetHeight, behavior: 'smooth' });
+            document.getElementById('titulo-visor').innerText = titulo; // Actualiza el nombre arriba
+            document.getElementById('iframe_visor').src = url; // Carga tu archivo
+        }
+
+        // Función para cerrar el reporte y regresar al menú
+        function volverMenu() {
+            document.getElementById('barra-navegacion').style.display = 'none'; // Esconde barra
+            document.getElementById('visor-container').style.display = 'none'; // Esconde pantalla
+            document.getElementById('iframe_visor').src = ''; // Limpia la memoria
+            
+            document.getElementById('menu-completo').style.display = 'block'; // Muestra menú de vuelta
         }
     </script>
 
