@@ -5,47 +5,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel de Control - El Compadre</title>
     <style>
+        /* Diseño para que se vea bien en computadoras y celulares */
         body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; background: #f4f4f4; overflow: hidden; }
         
-        /* Barra superior con colores corporativos */
-        header { background: #E1251B; color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 5px solid #012094; }
-        header h1 { margin: 0; font-size: 22px; }
-        .eslogan { font-style: italic; font-size: 14px; opacity: 0.9; }
+        header { 
+            background: #E1251B; /* Rojo de la empresa */
+            color: white; 
+            padding: 15px; 
+            text-align: center; 
+            border-bottom: 5px solid #012094; /* Azul de la empresa */
+        }
+        header h1 { margin: 0; font-size: 18px; text-transform: uppercase; }
+        .eslogan { font-style: italic; font-size: 13px; display: block; margin-top: 5px; }
 
         /* Panel de botones */
-        .panel-botones { background: #ffffff; padding: 10px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .panel-botones { 
+            background: #ffffff; 
+            padding: 10px; 
+            display: flex; 
+            flex-direction: column; /* Apila los botones uno sobre otro */
+            gap: 10px; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
+        }
         button { 
-            background: #012094; color: white; border: none; padding: 12px 25px; margin: 5px; 
-            cursor: pointer; border-radius: 5px; font-weight: bold; font-size: 14px; transition: 0.2s;
+            background: #012094; color: white; border: none; padding: 12px; 
+            cursor: pointer; border-radius: 5px; font-weight: bold; font-size: 14px; 
         }
         button:hover { background: #E1251B; }
 
-        /* Pantalla donde se verán los reportes */
-        iframe { width: 100%; height: calc(100vh - 140px); border: none; background: white; }
+        /* El visor donde se cargará el reporte */
+        iframe { width: 100%; height: calc(100vh - 160px); border: none; background: white; }
         
-        /* Mensaje inicial */
-        .mensaje-inicio { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #888; font-size: 18px; text-align: center; pointer-events: none; }
+        .mensaje-inicio { position: absolute; top: 60%; left: 50%; transform: translate(-50%, -50%); color: #888; font-size: 15px; text-align: center; width: 90%; pointer-events: none; }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>PANEL OPERATIVO DE LOGÍSTICA</h1>
+        <h1>Panel Operativo de Logística</h1>
         <span class="eslogan">"En precios y moda, el más padre"</span>
     </header>
 
     <div class="panel-botones">
-        <button onclick="cargarReporte('https://edwinramirez0517.github.io/Ventas_Saldos/')">📊 Ver Ventas y Saldos</button>
-        <button onclick="cargarReporte('https://edwinramirez0517.github.io/Movimiento_Suministro_Saldos/')">📦 Ver Suministros</button>
+        <button onclick="cargarReporte('https://edwinramirez0517.github.io/Ventas_Saldos/Ventas%20y%20saldos.html')">📊 Ver Ventas y Saldos</button>
+        
+        <button onclick="cargarReporte('https://edwinramirez0517.github.io/Ventas_Saldos/M_S_S.html')">📦 Ver Suministros</button>
     </div>
 
     <div class="mensaje-inicio" id="mensaje">Selecciona un reporte arriba para comenzar 👆</div>
+    
     <iframe id="visor" src=""></iframe>
 
     <script>
         function cargarReporte(url) {
+            // Esta función toma el enlace y lo pone dentro de la pantalla (visor)
             document.getElementById('visor').src = url;
-            document.getElementById('mensaje').style.display = 'none'; // Oculta el mensaje cuando abres uno
+            document.getElementById('mensaje').style.display = 'none';
         }
     </script>
 
