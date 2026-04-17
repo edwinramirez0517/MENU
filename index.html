@@ -3,64 +3,132 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de Control - El Compadre</title>
+    <title>Portal Logístico - El Compadre</title>
     <style>
-        /* Diseño para que se vea bien en computadoras y celulares */
-        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; background: #f4f4f4; overflow: hidden; }
+        /* COLORES OFICIALES  */
+        :root {
+            --rojo: #E1251B;
+            --azul: #012094;
+            --blanco: #ffffff;
+            --gris-fondo: #f0f2f5;
+        }
+
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; background: var(--gris-fondo); color: #333; }
         
+        /* HEADER PROFESIONAL */
         header { 
-            background: #E1251B; /* Rojo de la empresa */
+            background: var(--rojo); 
             color: white; 
-            padding: 15px; 
+            padding: 25px 15px; 
             text-align: center; 
-            border-bottom: 5px solid #012094; /* Azul de la empresa */
+            border-bottom: 6px solid var(--azul);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
-        header h1 { margin: 0; font-size: 18px; text-transform: uppercase; }
-        .eslogan { font-style: italic; font-size: 13px; display: block; margin-top: 5px; }
+        header h1 { margin: 0; font-size: 24px; text-transform: uppercase; letter-spacing: 1px; }
+        .eslogan { font-style: italic; font-size: 14px; opacity: 0.9; display: block; margin-top: 8px; }
 
-        /* Panel de botones */
-        .panel-botones { 
-            background: #ffffff; 
-            padding: 10px; 
-            display: flex; 
-            flex-direction: column; /* Apila los botones uno sobre otro */
-            gap: 10px; 
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
-        }
-        button { 
-            background: #012094; color: white; border: none; padding: 12px; 
-            cursor: pointer; border-radius: 5px; font-weight: bold; font-size: 14px; 
-        }
-        button:hover { background: #E1251B; }
+        /* SECCIÓN DE BIENVENIDA */
+        .intro { padding: 20px; text-align: center; background: white; margin-bottom: 5px; border-bottom: 1px solid #ddd; }
+        .intro p { margin: 0; color: #555; font-size: 15px; }
 
-        /* El visor donde se cargará el reporte */
-        iframe { width: 100%; height: calc(100vh - 160px); border: none; background: white; }
-        
-        .mensaje-inicio { position: absolute; top: 60%; left: 50%; transform: translate(-50%, -50%); color: #888; font-size: 15px; text-align: center; width: 90%; pointer-events: none; }
+        /* CONTENEDOR DE TARJETAS (CARDS) */
+        .grid-proyectos { 
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border-left: 5px solid var(--azul);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+            border-left-color: var(--rojo);
+        }
+
+        .card h3 { color: var(--azul); margin: 0 0 10px 0; font-size: 18px; }
+        .card p { color: #777; font-size: 14px; line-height: 1.4; margin-bottom: 15px; }
+
+        /* BOTÓN INTERNO */
+        .btn-abrir {
+            background: var(--azul);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            display: inline-block;
+            font-size: 13px;
+            text-transform: uppercase;
+        }
+
+        /* VISOR DE REPORTES */
+        .visor-container { width: 100%; position: relative; background: white; }
+        iframe { width: 100%; height: 75vh; border: none; display: none; }
+
+        /* FOOTER */
+        footer { background: #333; color: #ccc; text-align: center; padding: 15px; font-size: 12px; }
+
+        @media (max-width: 600px) {
+            header h1 { font-size: 18px; }
+            .grid-proyectos { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>Panel Operativo de Logística</h1>
-        <span class="eslogan">"En precios y moda, el más padre"</span>
+        <h1>Centro de Inteligencia de Datos</h1>
+        <span class="eslogan">"En precios y moda, el más padre" </span>
     </header>
 
-    <div class="panel-botones">
-        <button onclick="cargarReporte('https://edwinramirez0517.github.io/Ventas_Saldos/Ventas%20y%20saldos.html')">📊 Ver Ventas y Saldos</button>
-        
-        <button onclick="cargarReporte('https://edwinramirez0517.github.io/Ventas_Saldos/M_S_S.html')">📦 Ver Suministros</button>
+    <div class="intro">
+        <p>Seleccione el módulo que desea visualizar para la toma de decisiones:</p>
     </div>
 
-    <div class="mensaje-inicio" id="mensaje">Selecciona un reporte arriba para comenzar 👆</div>
-    
-    <iframe id="visor" src=""></iframe>
+    <div class="grid-proyectos" id="menu-proyectos">
+        <div class="card" onclick="verReporte('https://edwinramirez0517.github.io/Ventas_Saldos/Ventas%20y%20saldos.html')">
+            <h3>📊 Ventas y Saldos</h3>
+            <p>Monitoreo en tiempo real de salidas y disponibilidad de inventario local.</p>
+            <div class="btn-abrir">Ver Análisis</div>
+        </div>
+
+        <div class="card" onclick="verReporte('https://edwinramirez0517.github.io/Ventas_Saldos/M_S_S.html')">
+            <h3>📦 Movimientos S.S.</h3>
+            <p>Control de suministros y saldos operativos de bodega central.</p>
+            <div class="btn-abrir">Ver Inventario</div>
+        </div>
+    </div>
+
+    <div class="visor-container">
+        <iframe id="iframe_visor" src=""></iframe>
+    </div>
+
+    <footer>
+        &copy; 2026 Edwin Ramirez - Departamento de Logística | El Compadre
+    </footer>
 
     <script>
-        function cargarReporte(url) {
-            // Esta función toma el enlace y lo pone dentro de la pantalla (visor)
-            document.getElementById('visor').src = url;
-            document.getElementById('mensaje').style.display = 'none';
+        function verReporte(url) {
+            const frame = document.getElementById('iframe_visor');
+            const menu = document.getElementById('menu-proyectos');
+            
+            frame.src = url;
+            frame.style.display = 'block';
+            
+            // Efecto suave para bajar al reporte
+            window.scrollTo({ top: menu.offsetTop + menu.offsetHeight, behavior: 'smooth' });
         }
     </script>
 
