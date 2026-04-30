@@ -31,7 +31,7 @@
             z-index: 10;
         }
 
-        /* --- COLUMNA IZQUIERDA: PRINCIPIOS (Mucha presencia y color) --- */
+        /* --- COLUMNA IZQUIERDA: PRINCIPIOS (Fondo Azul) --- */
         .panel-lateral {
             width: 320px;
             background: linear-gradient(180deg, var(--azul) 0%, #01166b 100%);
@@ -54,7 +54,7 @@
             letter-spacing: 1px;
         }
 
-        /* Los 10 principios exactos de tu imagen */
+        /* Los 10 principios exactos */
         .lista-principios {
             list-style: none;
             padding: 0;
@@ -62,7 +62,7 @@
             flex-grow: 1;
             display: flex;
             flex-direction: column;
-            justify-content: space-around; /* Distribuye el espacio para que quepan bien */
+            justify-content: space-around; 
         }
 
         .lista-principios li {
@@ -88,7 +88,7 @@
             flex-shrink: 0;
         }
 
-        /* Logos de las otras empresas al fondo del panel lateral */
+        /* Logos del Grupo en la base de la columna (AUMENTADOS) */
         .logos-grupo {
             display: flex;
             justify-content: space-around;
@@ -96,16 +96,17 @@
             margin-top: 20px;
             padding-top: 20px;
             border-top: 1px solid rgba(255,255,255,0.2);
+            gap: 10px;
         }
 
         .logos-grupo img {
-            max-height: 40px;
-            max-width: 100px;
+            max-height: 65px; /* MODIFICADO: Logo de La Vitrina y Danilo's más grandes */
+            max-width: 130px; /* MODIFICADO: Ancho máximo ajustado */
             object-fit: contain;
             filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
         }
 
-        /* --- COLUMNA DERECHA: DASHBOARDS Y HEADER --- */
+        /* --- COLUMNA DERECHA: HEADER Y DASHBOARDS --- */
         .panel-principal {
             flex-grow: 1;
             display: flex;
@@ -124,7 +125,7 @@
         }
 
         .logo-main {
-            height: 55px; /* Tamaño grande para el logo de El Compadre */
+            height: 85px; /* MODIFICADO: Logo de El Compadre mucho más grande */
         }
 
         .header-titulos {
@@ -134,12 +135,12 @@
         .header-titulos h1 {
             color: var(--azul);
             margin: 0 0 5px 0;
-            font-size: 22px;
+            font-size: 24px;
         }
 
         .grid-proyectos {
             display: grid; 
-            grid-template-columns: repeat(2, 1fr); /* Fuerza 2 columnas para que quepan arriba */
+            grid-template-columns: repeat(2, 1fr); 
             gap: 25px; 
             padding: 40px; 
             max-width: 1000px; 
@@ -150,7 +151,7 @@
             flex-grow: 1;
         }
 
-        /* Tarjetas más grandes y con más color */
+        /* Tarjetas */
         .tarjeta {
             background: var(--blanco); 
             border-radius: 12px; 
@@ -229,7 +230,7 @@
 
     <div id="seccion-menu">
         
-        <!-- COLUMNA IZQUIERDA: PRINCIPIOS (Fondo Azul) -->
+        <!-- COLUMNA IZQUIERDA: PRINCIPIOS -->
         <aside class="panel-lateral">
             <h2>Principios para alcanzar el éxito</h2>
             <ul class="lista-principios">
@@ -245,7 +246,7 @@
                 <li><span class="numero-principio">10</span> AUTORIDAD</li>
             </ul>
             
-            <!-- Logos del Grupo en la base de la columna -->
+            <!-- Logos del Grupo -->
             <div class="logos-grupo">
                 <img src="logo_2.png" alt="La Vitrina">
                 <img src="logo_3.png" alt="Danilo's Store">
