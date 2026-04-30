@@ -16,10 +16,10 @@
         body, html { 
             margin: 0; 
             padding: 0; 
-            height: 100vh; /* Alto exacto de la pantalla, sin scroll */
+            height: 100vh; /* Alto exacto de la pantalla */
             font-family: 'Santral', 'Batangas', 'Segoe UI', sans-serif; 
             background-color: var(--fondo); 
-            overflow: hidden; /* Evita que se pueda bajar */
+            overflow: hidden; /* Mantiene la base fija, los paneles internos son los que se moverán */
         }
 
         /* --- CONTENEDOR PRINCIPAL DOS COLUMNAS --- */
@@ -41,6 +41,8 @@
             flex-direction: column;
             box-shadow: 4px 0 15px rgba(0,0,0,0.1);
             z-index: 2;
+            flex-shrink: 0; /* Evita que el panel se aplaste de más */
+            overflow-y: auto; /* SOLUCIÓN: Permite desplazar hacia abajo si la pantalla es bajita */
         }
 
         .panel-lateral h2 {
@@ -63,6 +65,7 @@
             display: flex;
             flex-direction: column;
             justify-content: space-around; 
+            gap: 10px; /* Espaciado extra si hay scroll */
         }
 
         .lista-principios li {
@@ -88,20 +91,20 @@
             flex-shrink: 0;
         }
 
-        /* Logos del Grupo en la base de la columna (AUMENTADOS) */
+        /* Logos del Grupo en la base de la columna */
         .logos-grupo {
             display: flex;
             justify-content: space-around;
             align-items: center;
-            margin-top: 20px;
+            margin-top: 25px;
             padding-top: 20px;
             border-top: 1px solid rgba(255,255,255,0.2);
             gap: 10px;
         }
 
         .logos-grupo img {
-            max-height: 65px; /* MODIFICADO: Logo de La Vitrina y Danilo's más grandes */
-            max-width: 130px; /* MODIFICADO: Ancho máximo ajustado */
+            max-height: 65px; 
+            max-width: 130px; 
             object-fit: contain;
             filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
         }
@@ -111,6 +114,8 @@
             flex-grow: 1;
             display: flex;
             flex-direction: column;
+            background-color: var(--fondo);
+            overflow-y: auto; /* SOLUCIÓN: Permite desplazar las tarjetas hacia abajo independientemente */
         }
 
         /* Cabecera con Logo Principal */
@@ -122,10 +127,11 @@
             justify-content: space-between;
             border-bottom: 5px solid var(--rojo);
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            flex-shrink: 0;
         }
 
         .logo-main {
-            height: 85px; /* MODIFICADO: Logo de El Compadre mucho más grande */
+            height: 85px; 
         }
 
         .header-titulos {
@@ -147,7 +153,7 @@
             margin: 0 auto;
             width: 100%;
             box-sizing: border-box;
-            align-content: center;
+            align-content: flex-start; /* Ayuda a acomodar las tarjetas mejor */
             flex-grow: 1;
         }
 
@@ -164,9 +170,7 @@
             transition: all 0.3s ease;
         }
 
-        .tarjeta:nth-child(even) {
-            border-top: 6px solid var(--rojo); 
-        }
+        .tarjeta:nth-child(even) { border-top: 6px solid var(--rojo); }
 
         .tarjeta:hover {
             transform: translateY(-5px) scale(1.02);
@@ -174,15 +178,12 @@
             border-color: var(--azul);
         }
 
-        .tarjeta:nth-child(even):hover {
-            border-color: var(--rojo);
-        }
+        .tarjeta:nth-child(even):hover { border-color: var(--rojo); }
 
         .tarjeta h3 {
-            color: var(--texto-principal);
+            color: #1E293B;
             margin: 0 0 10px 0;
             font-size: 20px;
-            color: #1E293B;
         }
 
         .tarjeta p {
@@ -224,6 +225,39 @@
 
         iframe { width: 1280px; height: 100%; border: none; transform-origin: 0 0; }
         @media (min-width: 1281px) { iframe { width: 100%; } }
+
+        /* =========================================
+           SOLUCIÓN PARA TELÉFONOS (Diseño Responsivo)
+           ========================================= */
+        @media (max-width: 850px) {
+            .panel-lateral {
+                width: 140px; /* Más delgado para no robar tanta pantalla */
+                padding: 20px 10px;
+            }
+            .panel-lateral h2 { font-size: 14px; margin-bottom: 15px; }
+            .lista-principios li { font-size: 10px; gap: 8px; }
+            .numero-principio { width: 18px; height: 18px; font-size: 10px; }
+            
+            .logos-grupo { flex-direction: column; /* Pone un logo arriba del otro en celular */ }
+            .logos-grupo img { max-width: 90px; }
+
+            header {
+                padding: 15px 20px;
+                flex-direction: column; /* Apila el logo central y el texto */
+                gap: 15px;
+                text-align: center;
+            }
+            .header-titulos { text-align: center; }
+            .logo-main { height: 60px; }
+            .header-titulos h1 { font-size: 18px; }
+            
+            .grid-proyectos {
+                grid-template-columns: 1fr; /* SOLUCIÓN: 1 sola columna hacia abajo para eliminar el espacio blanco */
+                padding: 20px;
+                gap: 15px;
+            }
+            .tarjeta { padding: 25px 15px; }
+        }
     </style>
 </head>
 <body>
