@@ -3,226 +3,329 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal Gerencial Logístico - El Compadre</title>
+    <title>Portal Gerencial El Compadre - Centro de Inteligencia</title>
     <style>
         :root {
-            /* Colores Corporativos según manual */
+            /* Colores Corporativos Oficiales */
             --rojo: #E1251B; 
             --azul: #012094; 
             
-            /* Colores de Interfaz Corporativa */
-            --fondo-app: #F5F7FA;
+            /* Paleta de Interfaz Premium */
             --blanco: #FFFFFF;
-            --texto-principal: #2D3748;
-            --texto-secundario: #718096;
-            --borde-sutil: #E2E8F0;
+            --fondo-claro: #F8FAFC;
+            --texto-titulo: #1E293B;
+            --texto-cuerpo: #475569;
+            --borde: #E2E8F0;
+            --sombra-premium: 0 20px 25px -5px rgba(0, 0, 0, 0.06), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
         }
 
+        /* Configuración Global y Tipografía del Manual */
         body, html { 
             margin: 0; 
             padding: 0; 
             height: 100%; 
-            font-family: 'Santral', 'Batangas', 'Segoe UI', -apple-system, sans-serif; 
-            background-color: var(--fondo-app); 
-            color: var(--texto-principal);
-            overflow: hidden; 
+            font-family: 'Santral', 'Batangas', 'SF Pro Display', -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; 
+            background-color: var(--fondo-claro); 
+            color: var(--texto-cuerpo);
+            overflow-x: hidden; 
         }
 
-        /* --- CABECERA GERENCIAL --- */
-        .header-gerencial {
-            background-color: var(--blanco);
-            padding: 20px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--borde-sutil);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-        }
+        h1, h2, h3 { font-family: 'Batangas', 'Segoe UI', sans-serif; font-weight: 700; color: var(--texto-titulo); margin: 0; }
+        p { line-height: 1.7; margin: 0; }
 
-        .marca-contenedor h1 {
-            font-family: 'Batangas', 'Segoe UI', sans-serif;
-            color: var(--azul);
-            margin: 0;
-            font-size: 24px;
-            letter-spacing: -0.5px;
-        }
-
-        .marca-contenedor p {
-            margin: 4px 0 0 0;
-            font-size: 13px;
-            color: var(--texto-secundario);
-            font-style: italic;
-        }
-
-        .departamento-tag {
-            background-color: rgba(1, 32, 148, 0.08);
-            color: var(--azul);
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 600;
-            border: 1px solid rgba(1, 32, 148, 0.15);
-        }
-
-        /* --- ÁREA DE CONTENIDO (MENÚ) --- */
-        #seccion-menu {
-            display: flex; 
-            flex-direction: column; 
-            height: 100vh; 
-            width: 100%; 
-            position: absolute; 
-            z-index: 10;
-        }
-
-        .titulo-seccion {
-            max-width: 1200px;
-            margin: 40px auto 10px auto;
-            padding: 0 30px;
+        /* --- SECCIÓN 1: HERO PORTADA (GRANDE Y COLORIDA) --- */
+        #hero-corporativo {
+            position: relative;
             width: 100%;
+            height: 80vh; /* Ocupa la mayor parte de la pantalla */
+            background: linear-gradient(135deg, var(--azul) 30%, #00176b 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--blanco);
+            text-align: center;
+            overflow: hidden;
+            padding: 60px;
             box-sizing: border-box;
         }
 
-        .titulo-seccion h2 {
+        /* Patrón de fondo sutil profesional */
+        #hero-corporativo::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3P%3Cg fill='none' fill-rule='evenodd'%3P%3Cg fill='%23ffffff' fill-opacity='0.03'%3P%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2v-4h4v-2h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2v-4h4v-2H6z'/%3P%3C/g%3P%3C/g%3P%3C/svg%3P");
+            opacity: 0.5;
+        }
+
+        .hero-contenido {
+            position: relative;
+            z-index: 5;
+            max-width: 1200px;
+        }
+
+        .hero-logo-main {
+            height: 120px; /* Logo grande */
+            width: auto;
+            margin-bottom: 40px;
+        }
+
+        .hero-titulo {
+            font-size: 3rem; /* Enorme */
+            letter-spacing: -1.5px;
+            background: linear-gradient(to right, #ffffff, #d3d3d3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+        }
+
+        .hero-eslogan {
+            font-size: 1.25rem;
+            opacity: 0.8;
+            font-weight: 300;
+            font-style: italic;
+        }
+
+        .seccion-divider {
+            height: 10px;
+            background: linear-gradient(to right, var(--azul) 50%, var(--rojo) 50%);
+            width: 100%;
             margin: 0;
-            font-size: 20px;
-            color: var(--texto-principal);
-            font-weight: 600;
+        }
+
+        /* --- SECCIÓN 2: PRINCIPIOS DEL ÉXITO (MÁS GRANDE Y COLORIDA) --- */
+        #seccion-principios {
+            padding: 100px 30px;
+            background-color: var(--blanco);
+        }
+
+        .titulo-seccion-gerencial {
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto 60px auto;
+        }
+
+        .titulo-seccion-gerencial h2 {
+            font-size: 2.5rem;
+            color: var(--azul);
+            margin-bottom: 20px;
+        }
+
+        .titulo-seccion-gerencial p {
+            color: var(--texto-cuerpo);
+            font-size: 1.1rem;
+        }
+
+        /* Rejilla de principios 2x5 para gran impacto visual */
+        .grid-principios {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 30px;
+            max-width: 1400px; /* Ancho máximo gerencial */
+            margin: 0 auto;
+        }
+
+        .tarjeta-principio {
+            background-color: var(--fondo-claro);
+            border-radius: 12px;
+            padding: 40px;
+            border: 1px solid var(--borde);
+            display: flex;
+            align-items: flex-start;
+            gap: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        /* Estilo alternado de color automático por tarjeta */
+        .tarjeta-principio:nth-child(odd) {
+            border-top: 5px solid var(--azul);
+        }
+        .tarjeta-principio:nth-child(even) {
+            border-top: 5px solid var(--rojo);
+        }
+
+        .tarjeta-principio:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--sombra-premium);
+            background-color: var(--blanco);
+        }
+
+        .principio-numero {
+            font-size: 3rem;
+            font-family: 'Segoe UI', sans-serif;
+            font-weight: 800;
+            line-height: 1;
+            opacity: 0.15;
+            flex-shrink: 0;
+            width: 70px;
+            text-align: right;
+        }
+
+        .tarjeta-principio:nth-child(odd) .principio-numero { color: var(--azul); }
+        .tarjeta-principio:nth-child(even) .principio-numero { color: var(--rojo); }
+
+        .principio-icono {
+            font-size: 1.5rem;
+            color: var(--azul);
+            flex-shrink: 0;
+            margin-top: 5px;
+        }
+
+        .principio-text-contenedor h3 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: var(--texto-titulo);
+            line-height: 1.4;
+        }
+
+        /* --- SECCIÓN 3: PANELES DE CONTROL (GRID DASHBOARD BOLDER) --- */
+        #seccion-menu {
+            padding: 100px 30px;
+            background-color: var(--fondo-claro);
         }
 
         .grid-proyectos {
             display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); 
-            gap: 24px; 
-            padding: 20px 30px 40px 30px; 
-            max-width: 1200px; 
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 30px; 
+            padding: 0;
+            max-width: 1400px; 
             margin: 0 auto;
             width: 100%;
             box-sizing: border-box;
         }
 
-        /* --- TARJETAS TIPO DASHBOARD --- */
+        /* TARJETAS TIPO DASHBOARD BOLDER */
         .tarjeta {
             background: var(--blanco); 
-            border-radius: 8px; 
-            padding: 24px; 
+            border-radius: 12px; 
+            padding: 30px; 
             cursor: pointer; 
-            border: 1px solid var(--borde-sutil);
-            border-top: 4px solid var(--rojo); /* Acento corporativo */
-            box-shadow: 0 4px 6px rgba(0,0,0,0.03); 
+            border: 1px solid var(--borde);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05); 
             transition: all 0.3s ease;
             position: relative;
             display: flex;
             flex-direction: column;
+            border-top: 6px solid var(--rojo); /* Acento corporativo bold */
         }
 
         .tarjeta:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+            transform: scale(1.03);
+            box-shadow: var(--sombra-premium);
             border-top-color: var(--azul);
         }
 
         .tarjeta-icono {
-            width: 40px;
-            height: 40px;
-            background: rgba(1, 32, 148, 0.05);
-            border-radius: 8px;
+            width: 50px;
+            height: 50px;
+            background: rgba(1, 32, 148, 0.08);
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 16px;
+            margin-bottom: 25px;
             color: var(--azul);
         }
 
         .tarjeta h3 {
-            color: var(--texto-principal);
-            margin: 0 0 8px 0;
-            font-size: 16px;
-            font-weight: 600;
+            color: var(--texto-titulo);
+            margin: 0 0 12px 0;
+            font-size: 1.3rem;
         }
 
         .tarjeta p {
-            color: var(--texto-secundario);
-            margin: 0 0 20px 0;
-            font-size: 13px;
-            line-height: 1.5;
+            color: var(--texto-cuerpo);
+            margin: 0 0 25px 0;
+            font-size: 0.95rem;
             flex-grow: 1;
         }
 
         .tarjeta-enlace {
-            font-size: 13px;
+            font-size: 14px;
             font-weight: 600;
             color: var(--azul);
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 8px;
             transition: 0.2s;
         }
 
         .tarjeta:hover .tarjeta-enlace {
             color: var(--rojo);
-            gap: 8px; /* Animación de la flecha al hacer hover */
+            gap: 12px;
         }
 
-        /* --- VISOR DE REPORTES --- */
+        /* --- VISOR DE REPORTES (MODAL) --- */
         #seccion-reporte {
             display: none; 
             flex-direction: column; 
             height: 100vh; 
             width: 100%; 
-            position: absolute; 
-            z-index: 20; 
+            position: fixed; /* Superpuesto a todo */
+            top: 0; left: 0;
+            z-index: 100; 
             background: var(--blanco);
         }
 
         .barra-visor {
             background: var(--blanco); 
-            padding: 12px 24px; 
+            padding: 15px 30px; 
             display: flex; 
             align-items: center; 
             justify-content: space-between;
-            border-bottom: 1px solid var(--borde-sutil);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            border-bottom: 1px solid var(--borde);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
         }
 
-        .breadcrumb {
+        .visor-branding {
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-size: 14px;
-            color: var(--texto-secundario);
+            gap: 15px;
         }
 
-        .breadcrumb span.activo {
+        .visor-logo {
+            height: 35px;
+            width: auto;
+        }
+
+        .visor-titulo-container {
+            font-size: 14px;
+            color: var(--texto-cuerpo);
+            display: flex;
+            gap: 8px;
+        }
+
+        .visor-nombre-reporte {
             color: var(--azul);
-            font-weight: 600;
+            font-weight: 700;
         }
 
         .btn-cerrar {
-            background: transparent; 
-            color: var(--texto-principal); 
-            border: 1px solid var(--borde-sutil); 
-            padding: 8px 16px; 
-            border-radius: 4px; 
+            background: var(--azul); 
+            color: var(--blanco); 
+            border: none; 
+            padding: 10px 20px; 
+            border-radius: 6px; 
             cursor: pointer; 
-            font-weight: 500; 
-            font-size: 13px;
+            font-weight: 600; 
+            font-size: 14px;
             transition: 0.2s;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
         }
 
         .btn-cerrar:hover {
-            background: var(--fondo-app);
-            border-color: var(--texto-secundario);
+            background: var(--rojo);
         }
 
         .contenedor-scroll {
             flex-grow: 1;
             width: 100%;
             overflow: auto; 
-            -webkit-overflow-scrolling: touch;
-            background: var(--fondo-app);
+            background: var(--fondo-claro);
         }
 
         iframe {
@@ -236,86 +339,164 @@
         @media (min-width: 1281px) {
             iframe { width: 100%; }
         }
-        @media (max-width: 768px) {
-            .header-gerencial { padding: 15px 20px; flex-direction: column; gap: 10px; align-items: flex-start; }
-            .departamento-tag { align-self: flex-start; }
+
+        /* --- MEDIA QUERIES RESPONSIVE --- */
+        @media (max-width: 1024px) {
+            .hero-titulo { font-size: 2.2rem; }
+            .hero-eslogan { font-size: 1rem; }
+            .hero-logo-main { height: 90px; }
+            .hero-corporativo { height: 60vh; padding: 40px; }
+            #seccion-principios, #seccion-menu { padding: 60px 20px; }
+            .grid-principios { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-    <!-- MENÚ PRINCIPAL -->
-    <div id="seccion-menu">
-        <header class="header-gerencial">
-            <div class="marca-contenedor">
-                <h1>El Compadre</h1>
-                <p>"En precios y moda, el más padre"</p>
-            </div>
-            <div class="departamento-tag">
-                Centro de Inteligencia Logística
+    <div id="portal-pagina-principal">
+        
+        <header id="hero-corporativo">
+            <div class="hero-contenido">
+                <img src="logo_3.png" alt="Logotipo Oficial El Compadre" class="hero-logo-main">
+                <h1 class="hero-titulo">Centro de Inteligencia</h1>
+                <p class="hero-eslogan">"En precios y moda, el más padre"</p>
+                <div style="font-size: 13px; opacity: 0.6; margin-top: 10px;">Portal de Inteligencia Logística | Nivel Gerencial</div>
             </div>
         </header>
+        
+        <div class="seccion-divider"></div>
 
-        <div class="titulo-seccion">
-            <h2>Panel de Control e Indicadores</h2>
-        </div>
-
-        <div class="grid-proyectos">
-            <!-- TARJETA 1 -->
-            <div class="tarjeta" onclick="mostrarReporte('https://edwinramirez0517.github.io/Sugerido_/', 'Sugerido de Reabastecimiento')">
-                <div class="tarjeta-icono">
-                    <!-- Icono SVG (Bulb/Idea) -->
-                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 21h6m-3-3v3m-5-9a5 5 0 0110 0c0 2.5-2 4-2 6H10c0-2-2-3.5-2-6z"></path></svg>
-                </div>
-                <h3>Sugerido</h3>
-                <p>Análisis de requerimientos, proyecciones y reabastecimiento estratégico.</p>
-                <div class="tarjeta-enlace">Acceder al panel <span style="font-size: 16px;">→</span></div>
+        <section id="seccion-principios">
+            <div class="titulo-seccion-gerencial">
+                <h2>Principios para alcanzar el éxito</h2>
+                <p>Nuestra brújula estratégica para liderar el mercado y crear valor constante.</p>
             </div>
 
-            <!-- TARJETA 2 -->
-            <div class="tarjeta" onclick="mostrarReporte('https://edwinramirez0517.github.io/Movimiento_Suministro_Saldos/', 'Control de Suministros')">
-                <div class="tarjeta-icono">
-                    <!-- Icono SVG (Box) -->
-                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
+            <div class="grid-principios">
+                <div class="tarjeta-principio">
+                    <span class="principio-icono">🏆</span>
+                    <div class="principio-text-contenedor">
+                        <h3>Ser líderes en Precio, Moda y Servicio.</h3>
+                    </div>
                 </div>
-                <h3>Suministros</h3>
-                <p>Monitoreo detallado de movimientos de bodega y existencias operativas.</p>
-                <div class="tarjeta-enlace">Acceder al panel <span style="font-size: 16px;">→</span></div>
+                <div class="tarjeta-principio">
+                    <span class="principio-icono">👥</span>
+                    <div class="principio-text-contenedor">
+                        <h3>Trabajar con equipos de alta calidad.</h3>
+                    </div>
+                </div>
+                <div class="tarjeta-principio">
+                    <span class="principio-icono">🤝</span>
+                    <div class="principio-text-contenedor">
+                        <h3>Promover el espíritu de equipo.</h3>
+                    </div>
+                </div>
+                <div class="tarjeta-principio">
+                    <span class="principio-icono">💡</span>
+                    <div class="principio-text-contenedor">
+                        <h3>Tener creatividad, iniciativa y innovación.</h3>
+                    </div>
+                </div>
+                <div class="tarjeta-principio">
+                    <span class="principio-icono">🛡️</span>
+                    <div class="principio-text-contenedor">
+                        <h3>Compromiso y lealtad.</h3>
+                    </div>
+                </div>
+                <div class="tarjeta-principio">
+                    <span class="principio-icono">📈</span>
+                    <div class="principio-text-contenedor">
+                        <h3>Enfoque a resultados.</h3>
+                    </div>
+                </div>
+                <div class="tarjeta-principio">
+                    <span class="principio-icono">⚖️</span>
+                    <div class="principio-text-contenedor">
+                        <h3>Honestidad y Ética.</h3>
+                    </div>
+                </div>
+                <div class="tarjeta-principio">
+                    <span class="principio-icono">🔄</span>
+                    <div class="principio-text-contenedor">
+                        <h3>Mantener una actitud de aprendizaje y cambio.</h3>
+                    </div>
+                </div>
+                <div class="tarjeta-principio">
+                    <span class="principio-icono">🌿</span>
+                    <div class="principio-text-contenedor">
+                        <h3>Cuidar el medio ambiente.</h3>
+                    </div>
+                </div>
+                <div class="tarjeta-principio">
+                    <span class="principio-icono">⭐</span>
+                    <div class="principio-text-contenedor">
+                        <h3>Crear valor para los clientes, accionistas y colaboradores.</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="seccion-menu">
+            <div class="titulo-seccion-gerencial">
+                <h2>Panel de Indicadores Clave</h2>
+                <p>Acceda a los dashboards de Business Intelligence para la toma de decisiones estratégicas.</p>
             </div>
 
-            <!-- TARJETA 3 -->
-            <div class="tarjeta" onclick="mostrarReporte('https://edwinramirez0517.github.io/Tablero-Comparativo/', 'Tablero Comparativo')">
-                <div class="tarjeta-icono">
-                    <!-- Icono SVG (Dashboard/Chart) -->
-                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+            <div class="grid-proyectos">
+                <div class="tarjeta" onclick="mostrarReporte('https://edwinramirez0517.github.io/Sugerido_/', 'Sugerido de Reabastecimiento')">
+                    <div class="tarjeta-icono">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 21h6m-3-3v3m-5-9a5 5 0 0110 0c0 2.5-2 4-2 6H10c0-2-2-3.5-2-6z"></path></svg>
+                    </div>
+                    <h3>Sugerido</h3>
+                    <p>Requerimientos, proyecciones y reabastecimiento estratégico.</p>
+                    <div class="tarjeta-enlace">Abrir Dashboard <span style="font-size: 18px;">→</span></div>
                 </div>
-                <h3>Tablero Comparativo</h3>
-                <p>Comparativa integral de métricas y rendimiento entre períodos o tiendas.</p>
-                <div class="tarjeta-enlace">Acceder al panel <span style="font-size: 16px;">→</span></div>
-            </div>
 
-            <!-- TARJETA 4 -->
-            <div class="tarjeta" onclick="mostrarReporte('https://edwinramirez0517.github.io/Ventas_Saldos/', 'Análisis de Ventas y Saldos')">
-                <div class="tarjeta-icono">
-                    <!-- Icono SVG (Trending) -->
-                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                <div class="tarjeta" onclick="mostrarReporte('https://edwinramirez0517.github.io/Movimiento_Suministro_Saldos/', 'Control de Suministros')">
+                    <div class="tarjeta-icono">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
+                    </div>
+                    <h3>Suministros</h3>
+                    <p>Movimientos de bodega, inventarios operativos y existencias.</p>
+                    <div class="tarjeta-enlace">Abrir Dashboard <span style="font-size: 18px;">→</span></div>
                 </div>
-                <h3>Ventas y Saldos</h3>
-                <p>Evaluación de crecimiento, saldo actual vs anterior y flujo de rotación.</p>
-                <div class="tarjeta-enlace">Acceder al panel <span style="font-size: 16px;">→</span></div>
+
+                <div class="tarjeta" onclick="mostrarReporte('https://edwinramirez0517.github.io/Tablero-Comparativo/', 'Tablero Comparativo Operativo')">
+                    <div class="tarjeta-icono">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+                    </div>
+                    <h3>Comparativo</h3>
+                    <p>Métricas logísticas y rendimiento entre períodos o tiendas.</p>
+                    <div class="tarjeta-enlace">Abrir Dashboard <span style="font-size: 18px;">→</span></div>
+                </div>
+
+                <div class="tarjeta" onclick="mostrarReporte('https://edwinramirez0517.github.io/Ventas_Saldos/', 'Análisis Estratégico de Ventas')">
+                    <div class="tarjeta-icono">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                    </div>
+                    <h3>Ventas</h3>
+                    <p>Evaluación de crecimiento, saldo actual vs anterior y flujo de rotación.</p>
+                    <div class="tarjeta-enlace">Abrir Dashboard <span style="font-size: 18px;">→</span></div>
+                </div>
             </div>
-        </div>
+        </section>
+
+        <footer style="padding: 40px; text-align: center; border-top: 1px solid var(--borde); font-size: 13px; color: var(--texto-cuerpo); background-color: var(--blanco);">
+            El Compadre | Portal de Inteligencia | Nivel Gerencial © 2026
+        </footer>
     </div>
 
-    <!-- VISOR DE REPORTES -->
     <div id="seccion-reporte">
         <div class="barra-visor">
-            <div class="breadcrumb">
-                Inicio <span style="color: #cbd5e1;">/</span> Visor <span style="color: #cbd5e1;">/</span> <span class="activo" id="nombre-reporte-activo">Reporte</span>
+            <div class="visor-branding">
+                <img src="logo_2.png" alt="Logo El Compadre Visor" class="visor-logo">
+                <div class="visor-titulo-container">
+                    Panel <span style="opacity: 0.5;">/</span> Visor <span style="opacity: 0.5;">/</span> <span class="visor-nombre-reporte" id="nombre-reporte-activo">Reporte</span>
+                </div>
             </div>
             <button class="btn-cerrar" onclick="ocultarReporte()">
-                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path></svg>
-                Volver al panel
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path></svg>
+                Cerrar y volver
             </button>
         </div>
         <div class="contenedor-scroll">
@@ -325,16 +506,18 @@
 
     <script>
         function mostrarReporte(url, nombre) {
-            document.getElementById('seccion-menu').style.display = 'none';
+            // Oculta la página principal completa y muestra el visor modal
+            document.getElementById('portal-pagina-principal').style.display = 'none';
             document.getElementById('seccion-reporte').style.display = 'flex';
             document.getElementById('visor-html').src = url;
-            // Actualiza el nombre en la barra del visor
+            // Actualiza el nombre del reporteactivo en la barra del visor
             document.getElementById('nombre-reporte-activo').innerText = nombre;
         }
 
         function ocultarReporte() {
+            // Cierra el visor y vuelve a mostrar la página principal
             document.getElementById('seccion-reporte').style.display = 'none';
-            document.getElementById('seccion-menu').style.display = 'flex';
+            document.getElementById('portal-pagina-principal').style.display = 'block';
             document.getElementById('visor-html').src = '';
         }
     </script>
