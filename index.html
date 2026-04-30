@@ -6,12 +6,20 @@
     <title>Portal Logístico - El Compadre</title>
     <style>
         :root {
-            --rojo: #E1251B; /* Rojo Corporativo [cite: 33] */
-            --azul: #012094; /* Azul Corporativo [cite: 42] */
+            --rojo: #E1251B; /* Rojo Corporativo Pantone 485 C */
+            --azul: #012094; /* Azul Corporativo Pantone 2756 C */
             --fondo: #f4f4f4;
         }
 
-        body, html { margin: 0; padding: 0; height: 100%; font-family: 'Segoe UI', sans-serif; background: var(--fondo); overflow: hidden; }
+        /* Se priorizan las fuentes del manual de marca: Santral y Batangas */
+        body, html { 
+            margin: 0; 
+            padding: 0; 
+            height: 100%; 
+            font-family: 'Santral', 'Batangas', 'Segoe UI', sans-serif; 
+            background: var(--fondo); 
+            overflow: hidden; 
+        }
 
         /* --- MENÚ PRINCIPAL --- */
         #seccion-menu {
@@ -22,12 +30,27 @@
             background: var(--rojo); color: white; padding: 20px; text-align: center; border-bottom: 6px solid var(--azul);
         }
 
+        header h1 {
+            font-family: 'Batangas', 'Segoe UI', sans-serif; /* Tipografía Principal */
+            margin: 0 0 5px 0;
+        }
+
         .grid-proyectos {
             display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; padding: 30px; max-width: 1000px; margin: 0 auto;
         }
 
         .tarjeta {
             background: white; border-radius: 12px; padding: 25px; text-align: center; box-shadow: 0 8px 15px rgba(0,0,0,0.1); cursor: pointer; border-top: 5px solid var(--azul); transition: 0.3s;
+        }
+
+        .tarjeta:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0,0,0,0.15);
+        }
+
+        .tarjeta h3 {
+            color: var(--azul);
+            margin-top: 0;
         }
 
         /* --- VISOR DE REPORTES --- */
@@ -40,7 +63,11 @@
         }
 
         .btn-regresar {
-            background: var(--azul); color: white; border: none; padding: 10px 18px; border-radius: 5px; cursor: pointer; font-weight: bold;
+            background: var(--azul); color: white; border: none; padding: 10px 18px; border-radius: 5px; cursor: pointer; font-weight: bold; transition: 0.2s;
+        }
+
+        .btn-regresar:hover {
+            background: #01166b; /* Un azul ligeramente más oscuro para el hover */
         }
 
         /* CONTENEDOR PARA EVITAR EL AMONTONAMIENTO EN MÓVIL */
@@ -69,20 +96,36 @@
     <div id="seccion-menu">
         <header>
             <h1>Centro de Inteligencia Logística</h1>
-            <div style="font-style: italic; font-size: 14px;">"En precios y moda, el más padre" [cite: 2, 8]</div>
+            <div style="font-style: italic; font-size: 16px; font-weight: 600;">"En precios y moda, el más padre"</div>
         </header>
 
         <div class="grid-proyectos">
-            <div class="tarjeta" onclick="mostrarReporte('https://edwinramirez0517.github.io/Ventas_Saldos/')">
-                <h3>📊 Ventas y Saldos</h3>
-                <p>Análisis de movimientos y disponibilidad.</p>
-                <b style="color: var(--azul);">ABRIR</b>
+            <!-- TARJETA 1 -->
+            <div class="tarjeta" onclick="mostrarReporte('https://edwinramirez0517.github.io/Sugerido_/')">
+                <h3>💡 Sugerido</h3>
+                <p>Análisis de requerimientos y reabastecimiento.</p>
+                <b style="color: var(--rojo);">ABRIR</b>
             </div>
 
+            <!-- TARJETA 2 -->
             <div class="tarjeta" onclick="mostrarReporte('https://edwinramirez0517.github.io/Movimiento_Suministro_Saldos/')">
                 <h3>📦 Suministros</h3>
                 <p>Control de movimientos de bodega.</p>
-                <b style="color: var(--azul);">ABRIR</b>
+                <b style="color: var(--rojo);">ABRIR</b>
+            </div>
+
+            <!-- TARJETA 3 -->
+            <div class="tarjeta" onclick="mostrarReporte('https://edwinramirez0517.github.io/Tablero-Comparativo/')">
+                <h3>📈 Tablero Comparativo</h3>
+                <p>Comparativa de métricas logísticas y operativas.</p>
+                <b style="color: var(--rojo);">ABRIR</b>
+            </div>
+
+            <!-- TARJETA 4 -->
+            <div class="tarjeta" onclick="mostrarReporte('https://edwinramirez0517.github.io/Ventas_Saldos/')">
+                <h3>📊 Ventas y Saldos</h3>
+                <p>Análisis de movimientos y disponibilidad.</p>
+                <b style="color: var(--rojo);">ABRIR</b>
             </div>
         </div>
     </div>
