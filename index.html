@@ -171,7 +171,7 @@
         }
 
         .menu-toggle {
-            display: none;
+            display: block; /* Modificado para que siempre esté visible, permitiendo colapsar en escritorio */
             background: none;
             border: none;
             cursor: pointer;
@@ -436,6 +436,13 @@
             100% { transform: rotate(360deg); }
         }
 
+        /* --- SIDEBAR ESCRITORIO COLAPSADA --- */
+        @media (min-width: 993px) {
+            .sidebar.collapsed {
+                margin-left: -280px;
+            }
+        }
+
         /* --- RESPONSIVE --- */
         @media (min-width: 1281px) {
             .report-iframe {
@@ -461,10 +468,6 @@
 
             .sidebar.open {
                 left: 0;
-            }
-
-            .menu-toggle {
-                display: block;
             }
 
             .topbar {
@@ -619,9 +622,16 @@
             const overlay = document.getElementById('overlay');
             const menuToggleBtn = document.getElementById('menu-toggle-btn');
 
-            sidebar.classList.toggle('open');
-            overlay.classList.toggle('active');
-            menuToggleBtn.classList.toggle('open');
+            if (window.innerWidth <= 992) {
+                // Comportamiento original para móviles
+                sidebar.classList.toggle('open');
+                overlay.classList.toggle('active');
+                menuToggleBtn.classList.toggle('open');
+            } else {
+                // Nuevo comportamiento para escritorio
+                sidebar.classList.toggle('collapsed');
+                menuToggleBtn.classList.toggle('open');
+            }
         }
 
         function loadDashboard(url, element, title) {
@@ -661,15 +671,25 @@
                 reportIframe.src = url;
             }
 
-            // Cerrar sidebar en móviles después de hacer click
-            if (window.innerWidth <= 992) {
-                const sidebar = document.getElementById('sidebar');
-                const overlay = document.getElementById('overlay');
-                const menuToggleBtn = document.getElementById('menu-toggle-btn');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            const menuToggleBtn = document.getElementById('menu-toggle-btn');
 
+            // Comportamiento de cierre de sidebar al hacer click
+            if (window.innerWidth <= 992) {
+                // En móviles: cerramos el menú y el overlay
                 sidebar.classList.remove('open');
                 overlay.classList.remove('active');
                 menuToggleBtn.classList.remove('open');
+            } else {
+                // En escritorio: contraemos el menú si abrimos un reporte, lo mostramos si vamos a inicio
+                if (url !== '') {
+                    sidebar.classList.add('collapsed');
+                    menuToggleBtn.classList.add('open');
+                } else {
+                    sidebar.classList.remove('collapsed');
+                    menuToggleBtn.classList.remove('open');
+                }
             }
         }
 
