@@ -4,361 +4,521 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portal Gerencial - El Compadre</title>
+    <!-- Fuentes para una estética sobria y profesional -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Colores Corporativos Oficiales */
-            --rojo: #E1251B; 
-            --azul: #012094; 
-            --fondo: #f4f6f9;
-            --blanco: #ffffff;
+            /* Colores Sobrios y Elegantes - Estética Ejecutiva / Hotel */
+            --sidebar-bg: #111827; /* Gris muy oscuro / Obsidiana */
+            --sidebar-hover: #1f2937;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --accent: #d4af37; /* Dorado metálico elegante */
+            --main-bg: #f9fafb;
+            --topbar-bg: #ffffff;
+            --text-dark: #111827;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --transition: all 0.3s ease;
         }
 
-        body, html { 
-            margin: 0; 
-            padding: 0; 
-            height: 100vh; /* Alto exacto de la pantalla */
-            font-family: 'Santral', 'Batangas', 'Segoe UI', sans-serif; 
-            background-color: var(--fondo); 
-            overflow: hidden; /* Mantiene la base fija, los paneles internos son los que se moverán */
-        }
-
-        /* --- CONTENEDOR PRINCIPAL DOS COLUMNAS --- */
-        #seccion-menu {
-            display: flex;
-            height: 100vh;
-            width: 100%;
-            position: absolute;
-            z-index: 10;
-        }
-
-        /* --- COLUMNA IZQUIERDA: PRINCIPIOS (Fondo Azul) --- */
-        .panel-lateral {
-            width: 320px;
-            background: linear-gradient(180deg, var(--azul) 0%, #01166b 100%);
-            color: var(--blanco);
-            padding: 30px 20px;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 4px 0 15px rgba(0,0,0,0.1);
-            z-index: 2;
-            flex-shrink: 0; /* Evita que el panel se aplaste de más */
-            overflow-y: auto; /* SOLUCIÓN: Permite desplazar hacia abajo si la pantalla es bajita */
-        }
-
-        .panel-lateral h2 {
-            font-size: 18px;
-            text-align: center;
-            margin-top: 0;
-            margin-bottom: 25px;
-            border-bottom: 2px solid var(--rojo);
-            padding-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* Los 10 principios exactos */
-        .lista-principios {
-            list-style: none;
-            padding: 0;
+        * {
+            box-sizing: border-box;
             margin: 0;
-            flex-grow: 1;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--main-bg);
+            color: var(--text-dark);
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* --- SIDEBAR --- */
+        .sidebar {
+            width: 280px;
+            background-color: var(--sidebar-bg);
+            color: var(--text-main);
             display: flex;
             flex-direction: column;
-            justify-content: space-around; 
-            gap: 10px; /* Espaciado extra si hay scroll */
-        }
-
-        .lista-principios li {
-            font-size: 14px;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 6px 0;
-        }
-
-        .numero-principio {
-            background-color: var(--rojo);
-            color: var(--blanco);
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 13px;
-            font-weight: 900;
+            transition: var(--transition);
+            z-index: 1000;
+            box-shadow: 2px 0 15px rgba(0,0,0,0.15);
             flex-shrink: 0;
         }
 
-        /* Logos del Grupo en la base de la columna */
+        .sidebar-header {
+            padding: 30px 20px 20px 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .sidebar-logo {
+            max-width: 130px;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
+            transition: var(--transition);
+        }
+
+        .sidebar-logo:hover {
+            transform: scale(1.05);
+        }
+
+        .sidebar-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            color: var(--accent);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .sidebar-nav {
+            flex-grow: 1;
+            padding: 20px 0;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        /* Estilo del scroll en el sidebar */
+        .sidebar-nav::-webkit-scrollbar {
+            width: 6px;
+        }
+        .sidebar-nav::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.1);
+            border-radius: 3px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 15px 25px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 400;
+            transition: var(--transition);
+            border-left: 4px solid transparent;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background-color: var(--sidebar-hover);
+            color: var(--text-main);
+            border-left-color: var(--accent);
+        }
+
+        .nav-icon {
+            width: 22px;
+            height: 22px;
+            margin-right: 15px;
+            fill: currentColor;
+            opacity: 0.8;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover .nav-icon, .nav-link.active .nav-icon {
+            opacity: 1;
+            fill: var(--accent);
+        }
+
+        .sidebar-footer {
+            padding: 20px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            text-align: center;
+        }
+
         .logos-grupo {
             display: flex;
-            justify-content: space-around;
+            justify-content: center;
+            gap: 15px;
             align-items: center;
-            margin-top: 25px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255,255,255,0.2);
-            gap: 10px;
         }
 
         .logos-grupo img {
-            max-height: 65px; 
-            max-width: 130px; 
+            max-height: 45px;
+            max-width: 85px;
             object-fit: contain;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+            opacity: 0.6;
+            transition: var(--transition);
         }
 
-        /* --- COLUMNA DERECHA: HEADER Y DASHBOARDS --- */
-        .panel-principal {
+        .logos-grupo img:hover {
+            opacity: 1;
+        }
+
+        /* --- MAIN CONTENT --- */
+        .main-wrapper {
             flex-grow: 1;
             display: flex;
             flex-direction: column;
-            background-color: var(--fondo);
-            overflow-y: auto; /* SOLUCIÓN: Permite desplazar las tarjetas hacia abajo independientemente */
+            min-width: 0;
+            background-color: var(--main-bg);
         }
 
-        /* Cabecera con Logo Principal */
-        header {
-            background: var(--blanco); 
-            padding: 20px 40px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: space-between;
-            border-bottom: 5px solid var(--rojo);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            flex-shrink: 0;
+        .topbar {
+            height: 70px;
+            background-color: var(--topbar-bg);
+            display: flex;
+            align-items: center;
+            padding: 0 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            z-index: 10;
         }
 
-        .logo-main {
-            height: 85px; 
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--sidebar-bg);
+            cursor: pointer;
+            margin-right: 20px;
+            padding: 5px;
+            transition: var(--transition);
         }
 
-        .header-titulos {
-            text-align: right;
+        .menu-toggle:hover {
+            color: var(--accent);
         }
 
-        .header-titulos h1 {
-            color: var(--azul);
-            margin: 0 0 5px 0;
-            font-size: 24px;
-        }
-
-        .grid-proyectos {
-            display: grid; 
-            grid-template-columns: repeat(2, 1fr); 
-            gap: 25px; 
-            padding: 40px; 
-            max-width: 1000px; 
-            margin: 0 auto;
-            width: 100%;
-            box-sizing: border-box;
-            align-content: flex-start; /* Ayuda a acomodar las tarjetas mejor */
+        .topbar-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--sidebar-bg);
+            letter-spacing: 0.5px;
             flex-grow: 1;
         }
 
-        /* Tarjetas */
-        .tarjeta {
-            background: var(--blanco); 
-            border-radius: 12px; 
-            padding: 35px 25px; 
-            text-align: center; 
-            cursor: pointer; 
-            border: 2px solid transparent;
-            border-top: 6px solid var(--azul); 
-            box-shadow: 0 8px 15px rgba(0,0,0,0.08); 
-            transition: all 0.3s ease;
+        .topbar-subtitle {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-style: italic;
         }
 
-        .tarjeta:nth-child(even) { border-top: 6px solid var(--rojo); }
-
-        .tarjeta:hover {
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 15px 25px rgba(0,0,0,0.15);
-            border-color: var(--azul);
+        .content-area {
+            flex-grow: 1;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
         }
 
-        .tarjeta:nth-child(even):hover { border-color: var(--rojo); }
-
-        .tarjeta h3 {
-            color: #1E293B;
-            margin: 0 0 10px 0;
-            font-size: 20px;
+        /* Welcome Section */
+        .welcome-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex-grow: 1;
+            padding: 40px;
+            text-align: center;
+            background: linear-gradient(135deg, #ffffff 0%, var(--main-bg) 100%);
+            overflow-y: auto;
         }
 
-        .tarjeta p {
-            color: #64748B;
-            margin: 0 0 20px 0;
-            font-size: 14px;
+        .welcome-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            color: var(--sidebar-bg);
+            margin-bottom: 15px;
+            font-weight: 700;
         }
 
-        .btn-abrir {
+        .welcome-subtitle {
+            font-size: 1.1rem;
+            color: #6b7280;
+            max-width: 650px;
+            line-height: 1.6;
+            margin-bottom: 50px;
+        }
+
+        .principles-container {
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        .principles-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--sidebar-bg);
+            margin-bottom: 25px;
+            position: relative;
             display: inline-block;
-            background-color: var(--fondo);
-            color: var(--azul);
-            padding: 8px 20px;
-            border-radius: 20px;
-            font-weight: bold;
-            font-size: 13px;
         }
 
-        .tarjeta:nth-child(even) .btn-abrir { color: var(--rojo); }
-
-        /* --- VISOR DE REPORTES --- */
-        #seccion-reporte {
-            display: none; flex-direction: column; height: 100vh; width: 100%; position: absolute; z-index: 20; background: var(--blanco);
+        .principles-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 2px;
+            background-color: var(--accent);
         }
 
-        .barra-control {
-            background: var(--blanco); padding: 10px 20px; display: flex; align-items: center; border-bottom: 3px solid var(--azul);
+        .principles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
         }
 
-        .btn-regresar {
-            background: var(--azul); color: var(--blanco); border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold;
+        .principle-card {
+            background: #ffffff;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            border-left: 3px solid var(--accent);
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: var(--transition);
         }
 
-        .btn-regresar:hover { background: var(--rojo); }
-
-        .contenedor-scroll {
-            flex-grow: 1; width: 100%; overflow: auto; -webkit-overflow-scrolling: touch;
+        .principle-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         }
 
-        iframe { width: 1280px; height: 100%; border: none; transform-origin: 0 0; }
-        @media (min-width: 1281px) { iframe { width: 100%; } }
+        .principle-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--accent);
+            font-weight: 700;
+            min-width: 25px;
+        }
 
-        /* =========================================
-           SOLUCIÓN PARA TELÉFONOS (Diseño Responsivo)
-           ========================================= */
-        @media (max-width: 850px) {
-            .panel-lateral {
-                width: 140px; /* Más delgado para no robar tanta pantalla */
-                padding: 20px 10px;
+        .principle-text {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--sidebar-bg);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Contenedor Iframe (Permite scroll en reportes no responsivos) */
+        .report-container {
+            flex-grow: 1;
+            width: 100%;
+            overflow: auto;
+            -webkit-overflow-scrolling: touch;
+            display: none;
+            background-color: #e5e7eb;
+        }
+
+        .report-container.active {
+            display: block;
+        }
+
+        .report-iframe {
+            width: 1280px; /* Forzamos ancho para no romper los tableros PowerBI/Específicos */
+            height: 100%;
+            min-height: 800px;
+            border: none;
+            background-color: #fff;
+            transform-origin: 0 0;
+            display: block;
+        }
+
+        .welcome-section.hidden {
+            display: none;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (min-width: 1281px) {
+            .report-iframe {
+                width: 100%; /* Pantallas grandes ajustan al 100% */
             }
-            .panel-lateral h2 { font-size: 14px; margin-bottom: 15px; }
-            .lista-principios li { font-size: 10px; gap: 8px; }
-            .numero-principio { width: 18px; height: 18px; font-size: 10px; }
+        }
+
+        @media (max-width: 992px) {
+            .sidebar {
+                position: fixed;
+                height: 100vh;
+                left: -280px;
+            }
+
+            .sidebar.open {
+                left: 0;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .topbar {
+                padding: 0 20px;
+            }
+
+            .topbar-subtitle {
+                display: none;
+            }
+
+            .overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(17, 24, 39, 0.7);
+                backdrop-filter: blur(2px);
+                z-index: 999;
+                display: none;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            }
+
+            .overlay.active {
+                display: block;
+                opacity: 1;
+            }
             
-            .logos-grupo { flex-direction: column; /* Pone un logo arriba del otro en celular */ }
-            .logos-grupo img { max-width: 90px; }
+            .welcome-title {
+                font-size: 2.2rem;
+            }
 
-            header {
-                padding: 15px 20px;
-                flex-direction: column; /* Apila el logo central y el texto */
-                gap: 15px;
-                text-align: center;
+            .welcome-section {
+                padding: 30px 20px;
             }
-            .header-titulos { text-align: center; }
-            .logo-main { height: 60px; }
-            .header-titulos h1 { font-size: 18px; }
-            
-            .grid-proyectos {
-                grid-template-columns: 1fr; /* SOLUCIÓN: 1 sola columna hacia abajo para eliminar el espacio blanco */
-                padding: 20px;
-                gap: 15px;
+        }
+
+        @media (max-width: 576px) {
+            .principles-grid {
+                grid-template-columns: 1fr 1fr;
             }
-            .tarjeta { padding: 25px 15px; }
         }
     </style>
 </head>
 <body>
 
-    <div id="seccion-menu">
+    <!-- Overlay para móviles -->
+    <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <img src="logo.png" alt="El Compadre" class="sidebar-logo" onerror="this.style.display='none'">
+            <div class="sidebar-title">Portal Gerencial</div>
+        </div>
         
-        <!-- COLUMNA IZQUIERDA: PRINCIPIOS -->
-        <aside class="panel-lateral">
-            <h2>Principios para alcanzar el éxito</h2>
-            <ul class="lista-principios">
-                <li><span class="numero-principio">1</span> LIDERAZGO</li>
-                <li><span class="numero-principio">2</span> DISCIPLINA</li>
-                <li><span class="numero-principio">3</span> RESPONSABILIDAD</li>
-                <li><span class="numero-principio">4</span> RAZONAMIENTO LÓGICO</li>
-                <li><span class="numero-principio">5</span> PASIÓN</li>
-                <li><span class="numero-principio">6</span> CREATIVIDAD</li>
-                <li><span class="numero-principio">7</span> ACTITUD</li>
-                <li><span class="numero-principio">8</span> COMPROMISO</li>
-                <li><span class="numero-principio">9</span> EMPATÍA</li>
-                <li><span class="numero-principio">10</span> AUTORIDAD</li>
-            </ul>
-            
-            <!-- Logos del Grupo -->
+        <nav class="sidebar-nav">
+            <a href="#" class="nav-link active" onclick="loadDashboard('', this, 'Inicio')">
+                <svg class="nav-icon" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+                Inicio
+            </a>
+            <a href="#" class="nav-link" onclick="loadDashboard('https://edwinramirez0517.github.io/Sugerido_/', this, 'Sugerido')">
+                <svg class="nav-icon" viewBox="0 0 24 24"><path d="M9 21c0 .5.4 1 1 1h4c.6 0 1-.5 1-1v-1H9v1zm3-19C8.1 2 5 5.1 5 9c0 2.4 1.2 4.5 3 5.7V17c0 .5.4 1 1 1h6c.6 0 1-.5 1-1v-2.3c1.8-1.3 3-3.4 3-5.7 0-3.9-3.1-7-7-7z"/></svg>
+                Sugerido
+            </a>
+            <a href="#" class="nav-link" onclick="loadDashboard('https://edwinramirez0517.github.io/Movimiento_Suministro_Saldos/', this, 'Suministros')">
+                <svg class="nav-icon" viewBox="0 0 24 24"><path d="M21 16.5c0 .38-.21.71-.53.88l-7.9 4.44c-.16.12-.36.18-.57.18s-.41-.06-.57-.18l-7.9-4.44A.991.991 0 0 1 3 16.5v-9c0-.38.21-.71.53-.88l7.9-4.44c.16-.12.36-.18.57-.18s.41.06.57.18l7.9 4.44c.32.17.53.5.53.88v9zM12 4.15L6.04 7.5 12 10.85l5.96-3.35L12 4.15zM5 15.91l6 3.38v-6.71L5 9.21v6.7zM19 15.91v-6.7l-6 3.38v6.71l6-3.38z"/></svg>
+                Suministros
+            </a>
+            <a href="#" class="nav-link" onclick="loadDashboard('https://edwinramirez0517.github.io/Tablero-Comparativo/', this, 'Comparativo')">
+                <svg class="nav-icon" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14H7v-5h5v5zm0-7H7V5h5v5zm7 7h-5v-5h5v5zm0-7h-5V5h5v5z"/></svg>
+                Comparativo
+            </a>
+            <a href="#" class="nav-link" onclick="loadDashboard('https://edwinramirez0517.github.io/Ventas_Saldos/', this, 'Ventas y Saldos')">
+                <svg class="nav-icon" viewBox="0 0 24 24"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/></svg>
+                Ventas y Saldos
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
             <div class="logos-grupo">
-                <img src="logo_2.png" alt="La Vitrina">
-                <img src="logo_3.png" alt="Danilo's Store">
+                <img src="logo_2.png" alt="La Vitrina" onerror="this.style.display='none'">
+                <img src="logo_3.png" alt="Danilo's Store" onerror="this.style.display='none'">
             </div>
-        </aside>
+        </div>
+    </aside>
 
-        <!-- COLUMNA DERECHA: HEADER Y DASHBOARDS -->
-        <main class="panel-principal">
-            
-            <header>
-                <!-- Logo Principal El Compadre -->
-                <img src="logo.png" alt="El Compadre" class="logo-main">
-                <div class="header-titulos">
-                    <h1>Centro de Inteligencia Logística</h1>
-                    <div style="font-style: italic; font-size: 14px; color: #64748B;">"En precios y moda, el más padre"</div>
-                </div>
-            </header>
+    <!-- MAIN CONTENT -->
+    <main class="main-wrapper">
+        <header class="topbar">
+            <button class="menu-toggle" onclick="toggleSidebar()" aria-label="Abrir menú">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </button>
+            <div class="topbar-title" id="topbar-title">Inicio</div>
+            <div class="topbar-subtitle">Centro de Inteligencia Logística</div>
+        </header>
 
-            <div class="grid-proyectos">
-                <!-- TARJETA 1 -->
-                <div class="tarjeta" onclick="mostrarReporte('https://edwinramirez0517.github.io/Sugerido_/')">
-                    <div style="font-size: 30px; margin-bottom: 10px;">💡</div>
-                    <h3>Sugerido</h3>
-                    <p>Análisis de requerimientos y reabastecimiento.</p>
-                    <span class="btn-abrir">ABRIR DASHBOARD</span>
-                </div>
+        <div class="content-area">
+            <!-- Welcome Section -->
+            <div id="welcome-section" class="welcome-section">
+                <h1 class="welcome-title">Bienvenido al Portal Gerencial</h1>
+                <p class="welcome-subtitle">Seleccione un reporte en el panel lateral para visualizar la información. Nuestro compromiso es la excelencia operativa y la toma de decisiones basada en datos.</p>
 
-                <!-- TARJETA 2 -->
-                <div class="tarjeta" onclick="mostrarReporte('https://edwinramirez0517.github.io/Movimiento_Suministro_Saldos/')">
-                    <div style="font-size: 30px; margin-bottom: 10px;">📦</div>
-                    <h3>Suministros</h3>
-                    <p>Control de movimientos de bodega.</p>
-                    <span class="btn-abrir">ABRIR DASHBOARD</span>
-                </div>
-
-                <!-- TARJETA 3 -->
-                <div class="tarjeta" onclick="mostrarReporte('https://edwinramirez0517.github.io/Tablero-Comparativo/')">
-                    <div style="font-size: 30px; margin-bottom: 10px;">📈</div>
-                    <h3>Comparativo</h3>
-                    <p>Métricas logísticas y rendimiento.</p>
-                    <span class="btn-abrir">ABRIR DASHBOARD</span>
-                </div>
-
-                <!-- TARJETA 4 -->
-                <div class="tarjeta" onclick="mostrarReporte('https://edwinramirez0517.github.io/Ventas_Saldos/')">
-                    <div style="font-size: 30px; margin-bottom: 10px;">📊</div>
-                    <h3>Ventas y Saldos</h3>
-                    <p>Evaluación de crecimiento y saldos.</p>
-                    <span class="btn-abrir">ABRIR DASHBOARD</span>
+                <div class="principles-container">
+                    <h2 class="principles-title">Principios para alcanzar el éxito</h2>
+                    <div class="principles-grid">
+                        <div class="principle-card"><div class="principle-number">1</div><div class="principle-text">Liderazgo</div></div>
+                        <div class="principle-card"><div class="principle-number">2</div><div class="principle-text">Disciplina</div></div>
+                        <div class="principle-card"><div class="principle-number">3</div><div class="principle-text">Responsabilidad</div></div>
+                        <div class="principle-card"><div class="principle-number">4</div><div class="principle-text">Razonamiento</div></div>
+                        <div class="principle-card"><div class="principle-number">5</div><div class="principle-text">Pasión</div></div>
+                        <div class="principle-card"><div class="principle-number">6</div><div class="principle-text">Creatividad</div></div>
+                        <div class="principle-card"><div class="principle-number">7</div><div class="principle-text">Actitud</div></div>
+                        <div class="principle-card"><div class="principle-number">8</div><div class="principle-text">Compromiso</div></div>
+                        <div class="principle-card"><div class="principle-number">9</div><div class="principle-text">Empatía</div></div>
+                        <div class="principle-card"><div class="principle-number">10</div><div class="principle-text">Autoridad</div></div>
+                    </div>
                 </div>
             </div>
-        </main>
-    </div>
 
-    <!-- VISOR DE REPORTES -->
-    <div id="seccion-reporte">
-        <div class="barra-control">
-            <button class="btn-regresar" onclick="ocultarReporte()">⬅️ Volver al Menú</button>
-            <span style="margin-left: 20px; font-weight: bold; color: var(--azul);">Visor de Inteligencia - El Compadre</span>
+            <!-- Report Container con Iframe -->
+            <div id="report-container" class="report-container">
+                <iframe id="report-iframe" class="report-iframe" src=""></iframe>
+            </div>
         </div>
-        <div class="contenedor-scroll">
-            <iframe id="visor-html" src=""></iframe>
-        </div>
-    </div>
+    </main>
 
     <script>
-        function mostrarReporte(url) {
-            document.getElementById('seccion-menu').style.display = 'none';
-            document.getElementById('seccion-reporte').style.display = 'flex';
-            document.getElementById('visor-html').src = url;
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('active');
         }
 
-        function ocultarReporte() {
-            document.getElementById('seccion-reporte').style.display = 'none';
-            document.getElementById('seccion-menu').style.display = 'flex';
-            document.getElementById('visor-html').src = '';
+        function loadDashboard(url, element, title) {
+            // Actualizar clase activa en el sidebar
+            const links = document.querySelectorAll('.nav-link');
+            links.forEach(link => link.classList.remove('active'));
+            element.classList.add('active');
+
+            // Actualizar título del topbar
+            const topbarTitle = document.getElementById('topbar-title');
+            topbarTitle.textContent = title;
+
+            const welcomeSection = document.getElementById('welcome-section');
+            const reportContainer = document.getElementById('report-container');
+            const reportIframe = document.getElementById('report-iframe');
+
+            if (url === '') {
+                // Modo Inicio
+                welcomeSection.classList.remove('hidden');
+                reportContainer.classList.remove('active');
+                reportIframe.src = '';
+            } else {
+                // Modo Reporte
+                welcomeSection.classList.add('hidden');
+                reportContainer.classList.add('active');
+                reportIframe.src = url;
+            }
+
+            // Cerrar sidebar en móviles después de hacer click
+            if (window.innerWidth <= 992) {
+                const sidebar = document.getElementById('sidebar');
+                const overlay = document.getElementById('overlay');
+                sidebar.classList.remove('open');
+                overlay.classList.remove('active');
+            }
         }
     </script>
-
 </body>
 </html>
