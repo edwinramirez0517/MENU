@@ -674,14 +674,18 @@
 
         function updateDateTime() {
             const now = new Date();
+            const timeZone = 'America/Tegucigalpa';
 
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            let dateString = now.toLocaleDateString('es-ES', options);
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', timeZone: timeZone };
+            let dateString = now.toLocaleDateString('es-HN', options);
             dateString = dateString.charAt(0).toUpperCase() + dateString.slice(1);
 
             document.getElementById('dynamic-date').textContent = dateString;
 
-            const hours = now.getHours();
+            // Obtener la hora específica de Honduras
+            const timeString = now.toLocaleTimeString('en-US', { hour12: false, timeZone: timeZone });
+            const hours = parseInt(timeString.split(':')[0], 10);
+
             let greeting = 'Buenas noches';
             if (hours >= 6 && hours < 12) {
                 greeting = 'Buenos días';
