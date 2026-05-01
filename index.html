@@ -220,6 +220,27 @@
             overflow-y: auto;
         }
 
+        .welcome-header-dynamic {
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .dynamic-date {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .dynamic-greeting {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
         .welcome-title {
             font-family: 'Playfair Display', serif;
             font-size: 2.8rem;
@@ -489,6 +510,10 @@
         <div class="content-area">
             <!-- Welcome Section -->
             <div id="welcome-section" class="welcome-section">
+                <div class="welcome-header-dynamic">
+                    <p id="dynamic-date" class="dynamic-date"></p>
+                    <p id="dynamic-greeting" class="dynamic-greeting"></p>
+                </div>
                 <h1 class="welcome-title">Bienvenido al Portal Gerencial</h1>
                 <p class="welcome-subtitle">Seleccione un reporte en el panel lateral para visualizar la información. Nuestro compromiso es la excelencia operativa y la toma de decisiones basada en datos.</p>
 
@@ -572,6 +597,32 @@
                 overlay.classList.remove('active');
             }
         }
+
+        function updateDateTime() {
+            const now = new Date();
+
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            let dateString = now.toLocaleDateString('es-ES', options);
+            dateString = dateString.charAt(0).toUpperCase() + dateString.slice(1);
+
+            document.getElementById('dynamic-date').textContent = dateString;
+
+            const hours = now.getHours();
+            let greeting = 'Buenas noches';
+            if (hours >= 6 && hours < 12) {
+                greeting = 'Buenos días';
+            } else if (hours >= 12 && hours < 20) {
+                greeting = 'Buenas tardes';
+            }
+
+            document.getElementById('dynamic-greeting').textContent = greeting;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            updateDateTime();
+            // Optional: Update every minute to keep greeting/date fresh if they leave it open
+            setInterval(updateDateTime, 60000);
+        });
     </script>
 </body>
 </html>
