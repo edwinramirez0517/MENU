@@ -174,15 +174,53 @@
             display: none;
             background: none;
             border: none;
-            color: var(--sidebar-bg);
             cursor: pointer;
             margin-right: 20px;
             padding: 5px;
-            transition: var(--transition);
+            width: 35px;
+            height: 35px;
+            position: relative;
+            z-index: 1001; /* To stay above overlay if needed */
         }
 
-        .menu-toggle:hover {
-            color: var(--accent);
+        .hamburger-lines {
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 24px;
+            height: 20px;
+        }
+
+        .hamburger-lines .line {
+            display: block;
+            position: absolute;
+            height: 3px;
+            width: 100%;
+            background: var(--sidebar-bg);
+            border-radius: 3px;
+            transition: transform 0.3s ease, opacity 0.3s ease, background 0.3s ease;
+        }
+
+        .hamburger-lines .line1 { top: 0; }
+        .hamburger-lines .line2 { top: 50%; transform: translateY(-50%); }
+        .hamburger-lines .line3 { bottom: 0; }
+
+        .menu-toggle:hover .hamburger-lines .line {
+            background: var(--accent);
+        }
+
+        .menu-toggle.open .hamburger-lines .line1 {
+            transform: translateY(8.5px) rotate(45deg);
+        }
+
+        .menu-toggle.open .hamburger-lines .line2 {
+            opacity: 0;
+        }
+
+        .menu-toggle.open .hamburger-lines .line3 {
+            transform: translateY(-8.5px) rotate(-45deg);
         }
 
         .topbar-title {
@@ -500,8 +538,12 @@
     <!-- MAIN CONTENT -->
     <main class="main-wrapper">
         <header class="topbar">
-            <button class="menu-toggle" onclick="toggleSidebar()" aria-label="Abrir menú">
-                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            <button class="menu-toggle" id="menu-toggle-btn" onclick="toggleSidebar()" aria-label="Abrir menú">
+                <span class="hamburger-lines">
+                    <span class="line line1"></span>
+                    <span class="line line2"></span>
+                    <span class="line line3"></span>
+                </span>
             </button>
             <div class="topbar-title" id="topbar-title">Inicio</div>
             <div class="topbar-subtitle">Centro de Inteligencia Logística</div>
@@ -548,8 +590,11 @@
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('overlay');
+            const menuToggleBtn = document.getElementById('menu-toggle-btn');
+
             sidebar.classList.toggle('open');
             overlay.classList.toggle('active');
+            menuToggleBtn.classList.toggle('open');
         }
 
         function loadDashboard(url, element, title) {
@@ -593,8 +638,11 @@
             if (window.innerWidth <= 992) {
                 const sidebar = document.getElementById('sidebar');
                 const overlay = document.getElementById('overlay');
+                const menuToggleBtn = document.getElementById('menu-toggle-btn');
+
                 sidebar.classList.remove('open');
                 overlay.classList.remove('active');
+                menuToggleBtn.classList.remove('open');
             }
         }
 
