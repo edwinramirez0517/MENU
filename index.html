@@ -35,7 +35,8 @@
             color: var(--text-dark);
             height: 100vh;
             display: flex;
-            overflow: hidden;
+            overflow-y: auto;
+            overflow-x: hidden;
         }
 
         /* --- SIDEBAR --- */
@@ -242,7 +243,8 @@
             position: relative;
             display: flex;
             flex-direction: column;
-            overflow: hidden;
+            overflow-y: auto;
+            overflow-x: hidden;
         }
 
         /* Welcome Section */
@@ -255,7 +257,6 @@
             padding: 40px;
             text-align: center;
             background: linear-gradient(135deg, #ffffff 0%, var(--main-bg) 100%);
-            overflow-y: auto;
         }
 
         .welcome-header-dynamic {
@@ -322,8 +323,14 @@
 
         .principles-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 15px;
+        }
+
+        @media (min-width: 1200px) {
+            .principles-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
         }
 
         .principle-card {
@@ -437,6 +444,10 @@
         @media (max-width: 992px) {
             body {
                 overflow-y: auto;
+            }
+
+            .principles-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
 
             .sidebar {
