@@ -435,6 +435,10 @@
         }
 
         @media (max-width: 992px) {
+            body {
+                overflow-y: auto;
+            }
+
             .sidebar {
                 position: fixed;
                 height: 100vh;
@@ -483,11 +487,19 @@
             .welcome-section {
                 padding: 30px 20px;
             }
+
+            .content-area {
+                overflow-y: auto;
+            }
         }
 
         @media (max-width: 576px) {
             .principles-grid {
-                grid-template-columns: 1fr 1fr;
+                grid-template-columns: 1fr;
+            }
+
+            .principle-text {
+                font-size: 0.8rem; /* Ajuste para evitar desbordes */
             }
         }
     </style>
