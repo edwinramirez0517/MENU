@@ -36,7 +36,6 @@
             height: 100vh;
             display: flex;
             overflow-y: auto;
-            overflow-x: hidden;
         }
 
         /* --- SIDEBAR --- */
@@ -244,7 +243,6 @@
             display: flex;
             flex-direction: column;
             overflow-y: auto;
-            overflow-x: hidden;
         }
 
         /* Welcome Section */
@@ -322,18 +320,15 @@
         }
 
         .principles-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
             gap: 15px;
         }
 
-        @media (min-width: 1200px) {
-            .principles-grid {
-                grid-template-columns: repeat(4, 1fr);
-            }
-        }
-
         .principle-card {
+            /* 3 columnas por defecto (100% / 3) menos el gap */
+            width: calc((100% - 30px) / 3);
             background: #ffffff;
             padding: 15px 20px;
             border-radius: 8px;
@@ -344,6 +339,13 @@
             align-items: center;
             gap: 15px;
             transition: var(--transition);
+        }
+
+        @media (min-width: 1200px) {
+            .principle-card {
+                /* 4 columnas en pantallas grandes (100% / 4) menos el gap */
+                width: calc((100% - 45px) / 4);
+            }
         }
 
         .principle-card:hover {
@@ -446,8 +448,9 @@
                 overflow-y: auto;
             }
 
-            .principles-grid {
-                grid-template-columns: repeat(2, 1fr);
+            .principle-card {
+                /* 2 columnas (100% / 2) menos el gap */
+                width: calc((100% - 15px) / 2);
             }
 
             .sidebar {
@@ -505,8 +508,9 @@
         }
 
         @media (max-width: 576px) {
-            .principles-grid {
-                grid-template-columns: 1fr;
+            .principle-card {
+                /* 1 columna */
+                width: 100%;
             }
 
             .principle-text {
@@ -671,14 +675,18 @@
 
         function updateDateTime() {
             const now = new Date();
+            const timeZone = 'America/Tegucigalpa';
 
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            let dateString = now.toLocaleDateString('es-ES', options);
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', timeZone: timeZone };
+            let dateString = new Intl.DateTimeFormat('es-ES', options).format(now);
             dateString = dateString.charAt(0).toUpperCase() + dateString.slice(1);
 
             document.getElementById('dynamic-date').textContent = dateString;
 
-            const hours = now.getHours();
+            // Obtener la hora actual en la zona horaria especificada
+            const timeString = new Intl.DateTimeFormat('en-US', { hour: 'numeric', hour12: false, timeZone: timeZone }).format(now);
+            const hours = parseInt(timeString, 10);
+
             let greeting = 'Buenas noches';
             if (hours >= 6 && hours < 12) {
                 greeting = 'Buenos días';
